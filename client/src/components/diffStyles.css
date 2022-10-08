@@ -1,0 +1,66 @@
+body{
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+.center{
+  text-align: center;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 100%;
+}
+.Collapsible__contentInner{
+  grid-column-start: 1;
+}
+.parent {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  }
+  
+  .quotesArea { grid-area: 2 / 1 / 3 / 2; }
+  .calendarArea { grid-area: 2 / 2 / 3 / 3; }
+  .logout{
+    margin-left: 90%;
+    margin-top: -25%;
+  }
+  /* Note area */
+  li {
+    margin: 5%;
+    list-style: url("../../public/favicon-32x32.png")
+    
+  }
+  li:before {
+    content: icon;
+  }
+  textarea{
+    border: 1.5px solid lightgray;
+    border-radius: 15px;
+    width: 100%;
+  }
+  /* All Notes area */
+  .allNotesContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    }
+    
+    .headline { 
+      grid-area: 1 / 2 / 2 / 3; 
+      margin: auto;
+    }
+    .logoutBtn {
+       grid-area: 1 / 3 / 2 / 4;
+       margin: auto;
+       }
+    .allNotes { grid-area: 2 / 1 / 3 / 4;}
+    .backBtn{grid-area: 3 / 2 / 4 / 3}
+
+  /* Error Page set up */
+  

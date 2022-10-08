@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@500&display=swap');
+
+/* Generate different theme for dark and light mode */
+
+.light{
+ background-color: white;
+ color: black; 
+}
+.dark{
+  background-color: black;
+  color: lightgray;
+}
+body{
+  font-family: 'Roboto', sans-serif;
+}
+h1{
+  font-family: 'DynaPuff', cursive;
+}
+.btn{
+  font-family: 'DynaPuff', cursive;
+}
