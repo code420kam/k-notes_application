@@ -8,6 +8,7 @@ import NotesBoard from "./NotesBoard";
 import Calendary from "./Calendar";
 import axios from "axios"
 import NewNote from "./NewNote";
+import jwtDecode from "jwt-decode";
 import speech from "../actions/speech"
 import {
     FacebookShareButton, FacebookIcon,
@@ -24,9 +25,12 @@ const Dashboard = () => {
     const [authenticate, setAuthenticate] = useState(location.state as string)
     const [quotes, setQuotes] = useState(Object)
     const [newNote, setNewNote] = useState(false);
+    const token:Object = jwtDecode(location.state as string)
+    const userData = Object.values(token)
     const [refreshBtn, setRefreshBtn] = useState(0)
     const [loading, setLoading] = useState(true)
     const singleQuote = Object.values(quotes)[2] as string
+    const quoteAPI = process.env.REACT_APP_QUOTEAPI as string
 
     const handleClick = () => {
         setNewNote(current => !current);
@@ -44,16 +48,31 @@ const Dashboard = () => {
         url: 'https://quotes15.p.rapidapi.com/quotes/random/',
         params:{language_code: "de"},
         headers: {
-          'X-RapidAPI-Key': '447477d9b7mshfb3be97ef9af8cap149697jsn92885b3b8fe4',
+          'X-RapidAPI-Key': quoteAPI,
           'X-RapidAPI-Host': 'quotes15.p.rapidapi.com'
         }
       };
-      
+      const quoteOptions= {
+        method:"POST",
+        // url:`http://localhost:8000/quote/quote_post`,
+        headers: {
+            "Content-Type":"application/json",
+            "authorization" : location.state as string
+ },
+        body: JSON.stringify({
+            quote: quotes.content,
+            quote_id: quotes.id,
+            user_id: userData[0]
+        })
+    }
+    
       axios.request(options).then(function (response) {
           setQuotes(response.data)
           setLoading(false)
+          fetch(`http://localhost:8000/quote/quote_post`, quoteOptions)
       }).catch(function (error) {
       });
+      console.log(quotes)
     },[refreshBtn, logout])
 
     if(authenticate){
