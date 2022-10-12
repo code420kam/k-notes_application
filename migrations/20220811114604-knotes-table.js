@@ -48,7 +48,6 @@ exports.up = function(db) {
     quote_id INT,
     note_id INT,
     user_id INT,
-    date BIGINT,
     PRIMARY KEY(quote_notes_id),
 
     CONSTRAINT fk_user_id
@@ -65,9 +64,9 @@ exports.up = function(db) {
   );
 
   INSERT INTO users(username, password) VALUES ('admin', '$2b$10$wRR68jisybugMzdjqehiuORgKgoG6a43MfKbRIfUdq0AMrqiG0H9G'), ('kamil1907', '$2b$10$PRW7WH2zgu/RHF8QXLyTDeJWV02i9Uo3aS6KTdZTJd7m9EUWAj0wm');
-  INSERT INTO quotes(quote_id, quote, user_id) VALUES('2', 'wasser findet seinen weg', '2'), (3, 'wer hoch flieg fällt tief', '1');
+  INSERT INTO quotes(quote_id, quote, user_id) VALUES('2', 'wasser findet seinen weg', '2'),('4', 'kamil kamil', '2'), (3, 'wer hoch flieg fällt tief', '1');
   INSERT INTO notes(subject, note, user_id, date) VALUES ('Wasser', 'Du sollst unaufhaltsam sein', '2', '1660154205000'), ('Fliegen', 'du sollst nicht so hoch fliegen haha', 1, '1659697005000');
-  INSERT INTO quote_notes(quote_id, note_id, user_id, date) VALUES (2, 1, 2, '1660154205000'), (2,2, 1, '1659697005000');
+  INSERT INTO quote_notes(quote_id, note_id, user_id) VALUES (2, 1, 2), (2,2, 1);
   
   `);
 };

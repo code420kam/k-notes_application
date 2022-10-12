@@ -29,7 +29,6 @@ const Dashboard = () => {
     const userData = Object.values(token)
     const [refreshBtn, setRefreshBtn] = useState(0)
     const [loading, setLoading] = useState(true)
-    const singleQuote = Object.values(quotes)[2] as string
     const quoteAPI = process.env.REACT_APP_QUOTEAPI as string
 
     const handleClick = () => {
@@ -65,16 +64,14 @@ const Dashboard = () => {
             user_id: userData[0]
         })
     }
-    
+    console.log(quoteOptions)
       axios.request(options).then(function (response) {
           setQuotes(response.data)
           setLoading(false)
-          fetch(`http://localhost:8000/quote/quote_post`, quoteOptions)
+          // fetch(`http://localhost:8000/quote/quote_post`, quoteOptions)
       }).catch(function (error) {
       });
-      console.log(quotes)
     },[refreshBtn, logout])
-
     if(authenticate){
       return (
             <div className="center">
@@ -92,24 +89,24 @@ const Dashboard = () => {
              <Button type="button" onClick={() => setRefreshBtn(refreshBtn + 1)}>Refresh</Button> 
               <img src={audioLogo} alt="voice output" onClick={() => speech(quotes.content)} />
              <Button onClick={handleClick}>Create Note</Button>
-              {newNote && (<NewNote />)}
+              {newNote && (<NewNote quotes={quotes}/>)}
                 </span>
                 <p>
-                <TwitterShareButton title={singleQuote} url="http://localhost:3000">
+                <TwitterShareButton title={quotes.content} url="http://localhost:3000">
                 <TwitterIcon round={true} size={36}/>
             </TwitterShareButton>
-              <WhatsappShareButton title={singleQuote} url={"http://localhost:3000"}>
+              <WhatsappShareButton title={quotes.content} url={"http://localhost:3000"}>
                 <WhatsappIcon round={true} size={36}/>
               </WhatsappShareButton>
               {/* Facebook share is not working, because of facebooks api removed the option. Maybe later it will be available.
                 Because of that I will let this part of code stay here*/}
-              <FacebookShareButton quote={singleQuote} url={"http://www.localhost:3000"}>
+              <FacebookShareButton quote={quotes.content} url={"http://www.localhost:3000"}>
                 <FacebookIcon round={true} size={36}/> 
               </FacebookShareButton>
-              <RedditShareButton title={singleQuote} url="http://www.localhost:3000">
+              <RedditShareButton title={quotes.content} url="http://www.localhost:3000">
                 <RedditIcon round={true} size={36} />
               </RedditShareButton>
-              <TelegramShareButton title={singleQuote} url="http://www.localhost:3000">
+              <TelegramShareButton title={quotes.content} url="http://www.localhost:3000">
                 <TelegramIcon round={true} size={36} />
               </TelegramShareButton>
                 </p>

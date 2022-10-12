@@ -3,26 +3,43 @@ import { Form, FormLabel, Button } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
-const NewNote = () => {
+const NewNote = (quotes:any) => {
     const location = useLocation();
     const [noteSubject, setNoteSubject] = useState("")
     const [note, setNote] = useState("")
     const [success, setSuccess] = useState(false)
     const token:Object = jwtDecode(location.state as string)
     const userData = Object.values(token)
-    const options= {
-        method:"POST",
-        headers: {
-            "Content-Type":"application/json",
-            "authorization" : location.state as string
- },
-        body: JSON.stringify({
-            subject: noteSubject,
-            note: note,
-            user_id: userData[0]
+    
+    const quoteReq = async () => {
+        await fetch(`http://localhost:8000/quote/note_quote`, {
+            method:"POST",
+            headers: {
+                "Content-Type":"application/json",
+                "authorization" : location.state as string
+     },
+            body: JSON.stringify({
+                user_id: userData[0]
+            })
         })
-    }
-    const handleChangeNote= (event:any):void => {
+    };
+
+    const notePost = async () => {
+        await fetch("http://localhost:8000/note/create", {
+            method:"POST",
+            headers: {
+                "Content-Type":"application/json",
+                "authorization" : location.state as string
+     },
+            body: JSON.stringify({
+                    subject: noteSubject,
+                    note: note,
+                    user_id: userData[0]
+            })
+        })
+    };
+
+        const handleChangeNote= (event:any):void => {
         event.preventDefault()
         setNote(event.target.value)
     }
@@ -32,15 +49,13 @@ const NewNote = () => {
     }
     const handleClick= async (e:any):Promise<void> => {
         e.preventDefault()
-        await fetch("http://localhost:8000/note/create", options)
-        .then(res => {
-            res.json()
-            setTimeout(() => {
-                window.location.reload()
-            },100)
-            setSuccess(true)})
+        await notePost();
+        await quoteReq();
+        setTimeout(() => {
+            setSuccess(true)
+            window.location.reload()
+        }, 300)
     }
-
     return(
         <div>
             <Form>
