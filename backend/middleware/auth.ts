@@ -1,45 +1,44 @@
-import jwt from "jsonwebtoken";
-import "dotenv/config";
-import {Request, Response, NextFunction} from "express";
-import process from "process";
-import { User } from "../user/service";
-import Client  from "../db";
-import bcrypt from "bcrypt"
+import jwt from 'jsonwebtoken'
+import 'dotenv/config'
+import { Request, Response, NextFunction } from 'express'
+import process from 'process'
+import { User } from '../user/service'
+import Client from '../db'
+import bcrypt from 'bcrypt'
 
 export async function auth(req: Request, res: Response, next: NextFunction) {
-    const token = req.header("Authorization");
-    const secret = process.env.SECRET_PW;
-    if(!token){
-        return res.status(401).send("Access denied. No token provided!")
+    const token = req.header('Authorization')
+    const secret = process.env.SECRET_PW
+    if (!token) {
+        return res.status(401).send('Access denied. No token provided!')
     }
-    if(secret)
-    try {
-        const verify = jwt.verify(token, secret)
-        res.header(verify)
-        next()
-    } catch (error) {
-        res.status(401).send("Token is expired please login again.")
-        next()
-    }
+    if (secret)
+        try {
+            const verify = jwt.verify(token, secret)
+            res.header(verify)
+            next()
+        } catch (error) {
+            res.status(401).send('Token is expired please login again.')
+            next()
+        }
 }
-export async function accessHeader(req: Request, res: Response, next: NextFunction){
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+export async function accessHeader(req: Request, res: Response, next: NextFunction) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
     // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
     // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', "true");
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization')
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
     // Pass to next layer of middleware
-    next();
+    next()
 }
-export const generateUserToken =async (user: User) :Promise<string> => {
+export const generateUserToken = async (user: User): Promise<string> => {
     const secret = process.env.SECRET_PW
     if (secret) {
         const pwReq = `SELECT password FROM users WHERE (username='${user.username}')`
         const res = await Client.query(pwReq)
         const pw = user.password + secret
-        if(bcrypt.compareSync(pw, res.rows[0].password))
-        {
+        if (bcrypt.compareSync(pw, res.rows[0].password)) {
             const sql = `SELECT * FROM users WHERE (username='${user.username}')`
             const query = await Client.query(sql)
             const id = query.rows[0].user_id
@@ -53,9 +52,8 @@ export const generateUserToken =async (user: User) :Promise<string> => {
             )
         } else {
             return 'invalid password!'
-        }}
-        else{
-            return 'invalid secret'
         }
-        
+    } else {
+        return 'invalid secret'
+    }
 }

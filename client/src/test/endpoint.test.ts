@@ -1,3 +1,3 @@
-const kam = 1;
+const kam = 1
 
-export default kam;
+export default kam
