@@ -10,7 +10,22 @@ const NewNote = (quotes:any) => {
     const [success, setSuccess] = useState(false)
     const token:Object = jwtDecode(location.state as string)
     const userData = Object.values(token)
-    
+    console.log(quotes)
+    const quotePost = async () => {
+        await fetch (`http://localhost:8000/quote/quote_post`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": location.state as string
+            },
+            body: JSON.stringify({
+                quote: quotes.quotes.content,
+                quote_id: quotes.quotes.id,
+                user_id: userData[0]
+            })
+        })
+    };
+
     const quoteReq = async () => {
         await fetch(`http://localhost:8000/quote/note_quote`, {
             method:"POST",
@@ -19,7 +34,8 @@ const NewNote = (quotes:any) => {
                 "authorization" : location.state as string
      },
             body: JSON.stringify({
-                user_id: userData[0]
+                user_id: userData[0],
+                quote_id: quotes.quotes.id
             })
         })
     };
@@ -49,6 +65,7 @@ const NewNote = (quotes:any) => {
     }
     const handleClick= async (e:any):Promise<void> => {
         e.preventDefault()
+        await quotePost();
         await notePost();
         await quoteReq();
         setTimeout(() => {

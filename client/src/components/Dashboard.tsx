@@ -3,7 +3,7 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import "./diffStyles.css"
 import audioLogo from "../img/audio.png"
 import logo from "../img/k_notes_logo_2.png"
-import { Button} from "react-bootstrap";
+import { Button, Dropdown} from "react-bootstrap";
 import NotesBoard from "./NotesBoard";
 import Calendary from "./Calendar";
 import axios from "axios"
@@ -51,24 +51,10 @@ const Dashboard = () => {
           'X-RapidAPI-Host': 'quotes15.p.rapidapi.com'
         }
       };
-      const quoteOptions= {
-        method:"POST",
-        // url:`http://localhost:8000/quote/quote_post`,
-        headers: {
-            "Content-Type":"application/json",
-            "authorization" : location.state as string
- },
-        body: JSON.stringify({
-            quote: quotes.content,
-            quote_id: quotes.id,
-            user_id: userData[0]
-        })
-    }
-    console.log(quoteOptions)
+  
       axios.request(options).then(function (response) {
           setQuotes(response.data)
           setLoading(false)
-          // fetch(`http://localhost:8000/quote/quote_post`, quoteOptions)
       }).catch(function (error) {
       });
     },[refreshBtn, logout])

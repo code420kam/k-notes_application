@@ -83,8 +83,8 @@ const AllNotes = () => {
     </tr>
   </thead>
   <tbody>
-      {notes.map((notiz: any, index) => {
-        const {note_id, note, subject, date} = notiz
+      {notes.map((desNote: any, index) => {
+        const {note_id, note, subject, date} = desNote
         return(
             <tr key={note_id}>
                 <th scope="row" >{index+1}</th>
