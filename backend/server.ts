@@ -15,6 +15,8 @@ app.use('/user', [accessHeader], userRouter)
 app.use('/note', [accessHeader], noteRouter)
 app.use('/quote', [accessHeader], quoteRouter)
 
-app.listen(port, () => {
+export const server = app.listen(port, () => {
     console.log(`Listen to port ${port}`)
 })
+export const closeServer = async () => await server.close()
+export default app;
