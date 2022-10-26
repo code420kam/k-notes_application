@@ -13,10 +13,10 @@ import NotFound from './components/404';
 // import {loginState } from "./components/LoginPage"
 
 
-const root = ReactDOM.createRoot(
+const Root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-root.render(
+const App = Root.render(
   <React.StrictMode>
     <BrowserRouter>
    <Routes>
@@ -32,3 +32,4 @@ root.render(
   </React.StrictMode>
 );
 
+export default App;

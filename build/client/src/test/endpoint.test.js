@@ -84,8 +84,7 @@ describe("endpoint testing", () => {
     }));
     test("note endpoint without authorization", () => __awaiter(void 0, void 0, void 0, function* () {
         const req = request.get("/note/:1");
-        req.set("authorization", token);
-        expect((yield req).status).toBe(200);
+        expect((yield req).status).toBe(401);
     }));
     test("quotes endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
         const req = request.post("/quote/quote_post");
@@ -95,6 +94,11 @@ describe("endpoint testing", () => {
             quote_id: "011",
             user_id: 1
         });
+        expect((yield req).status).toBe(200);
+    }));
+    test("get single quote", () => __awaiter(void 0, void 0, void 0, function* () {
+        const req = request.get("/quote/single/:1");
+        req.set("authorization", token);
         expect((yield req).status).toBe(200);
     }));
 });

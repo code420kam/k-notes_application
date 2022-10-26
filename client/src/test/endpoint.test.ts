@@ -53,8 +53,7 @@ describe("endpoint testing", () :void => {
     })
     test("note endpoint without authorization", async ():Promise<void> => {
         const req = request.get("/note/:1")
-        req.set("authorization", token)
-        expect((await req).status).toBe(200)
+        expect((await req).status).toBe(401)
     })
     test("quotes endpoint",async () => {
         const req = request.post("/quote/quote_post")
@@ -64,6 +63,11 @@ describe("endpoint testing", () :void => {
             quote_id: "011",
             user_id: 1
         })
+        expect((await req).status).toBe(200)
+    })
+    test("get single quote",async () => {
+        const req = request.get("/quote/single/:1")
+        req.set("authorization", token)
         expect((await req).status).toBe(200)
     })
 })

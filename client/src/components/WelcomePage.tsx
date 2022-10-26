@@ -1,4 +1,5 @@
 import { Button } from "react-bootstrap"
+import "react-bootstrap"
 import logo from "../img/img.gif"
 import "./diffStyles.css"
 import { useLocation, useNavigate } from "react-router-dom"
