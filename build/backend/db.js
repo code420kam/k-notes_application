@@ -16,6 +16,7 @@ if (ENV === 'dev') {
         password: POSTGRES_PASSWORD,
     });
 }
+console.log("ENV === " + ENV);
 if (ENV === 'test') {
     Client = new pg_1.Pool({
         host: POSTGRES_URL,
