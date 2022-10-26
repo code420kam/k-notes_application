@@ -6,7 +6,12 @@
   "jest": {
     "collectCoverageFrom": [
       "!<rootDir>/test/"
-    ]
+    ],
+      "moduleFileExtensions": [
+        "js",
+        "tsx",
+        "json"
+      ]
   },
   "scripts": {
     "migrate-up": "db-migrate up",
