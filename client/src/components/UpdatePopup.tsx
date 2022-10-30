@@ -30,7 +30,6 @@ const UpdatePopup = ( {note_id, note, index, subject, date} : {note_id: any, not
             }
     }).then((res) => {
        return res.json()}).then((resSon) => {
-        console.log("QQ" + JSON.stringify(resSon))
         setQuote(resSon[0].quote)
     })
             
@@ -61,7 +60,6 @@ const UpdatePopup = ( {note_id, note, index, subject, date} : {note_id: any, not
     
     const handleSubmit = async (note_id:number):Promise<void> => {
         setPopup(current => !current)
-        console.log(userData[0])
         if (updateSubject === undefined){
             return setUpdateSubject(subject)
         }

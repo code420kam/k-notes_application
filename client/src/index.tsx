@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import * as ReactDOM from 'react-dom/client';
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import './index.css';
 import LoginPage from './components/LoginPage';
@@ -13,11 +13,12 @@ import NotFound from './components/404';
 // import {loginState } from "./components/LoginPage"
 
 
-const Root = ReactDOM.createRoot(
+const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
-);
-const App = Root.render(
-  <React.StrictMode>
+); 
+
+root.render(
+  <React.StrictMode> 
     <BrowserRouter>
    <Routes>
     <Route index element={<WelcomePage />} />
@@ -29,7 +30,5 @@ const App = Root.render(
     <Route path='*' element={<NotFound />} />
    </Routes>
     </BrowserRouter>
-  </React.StrictMode>
+    </React.StrictMode>
 );
-
-export default App;

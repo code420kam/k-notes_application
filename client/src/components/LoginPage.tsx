@@ -31,7 +31,6 @@ const LoginPage = () => {
         try {
             await fetch("http://localhost:8000/user/login",requestOptions).then(res => {
                 if(res.ok){
-                    console.log("status" + res.status)
                     const test = res.text()
                     test.then((res) => {
                             navigate("/dashboard", {replace: true, state: res})

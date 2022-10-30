@@ -33,7 +33,6 @@ const Calendary = () => {
         })},[])
 
         const dateRange = date.map((data:Data, index):Date => {
-            console.log(typeof(date))
          return new Date(data.date*1)
         })
 

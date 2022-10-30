@@ -3,7 +3,7 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import "./diffStyles.css"
 import audioLogo from "../img/audio.png"
 import logo from "../img/k_notes_logo_2.png"
-import { Button, Dropdown} from "react-bootstrap";
+import { Button} from "react-bootstrap";
 import NotesBoard from "./NotesBoard";
 import Calendary from "./Calendar";
 import axios from "axios"
@@ -45,7 +45,7 @@ const Dashboard = () => {
     const options = {
         method: 'GET',
         url: 'https://quotes15.p.rapidapi.com/quotes/random/',
-        params:{language_code: "de"},
+        params:{language_code: "en"},
         headers: {
           'X-RapidAPI-Key': quoteAPI,
           'X-RapidAPI-Host': 'quotes15.p.rapidapi.com'

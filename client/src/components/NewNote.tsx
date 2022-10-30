@@ -10,7 +10,6 @@ const NewNote = (quotes:any) => {
     const [success, setSuccess] = useState(false)
     const token:Object = jwtDecode(location.state as string)
     const userData = Object.values(token)
-    console.log(quotes)
     const quotePost = async () => {
         await fetch (`http://localhost:8000/quote/quote_post`,{
             method: "POST",

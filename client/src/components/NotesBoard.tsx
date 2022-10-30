@@ -35,7 +35,6 @@ const NotesBoard = () => {
             <div>
                 <h1>Notes</h1>
                 <div>{notes.map((note: any)=>{
-                    console.log(note)
                     return (
                     <li key={note.note_id} style={{fontWeight:"bolder", color:"#0dcaf0"}}><Collapsible trigger={note.subject}>
                         <p>{note.note}</p>

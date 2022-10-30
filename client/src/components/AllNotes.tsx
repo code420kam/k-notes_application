@@ -3,7 +3,6 @@ import jwtDecode from "jwt-decode";
 import { useEffect, useState } from "react";
 import { Button, Dropdown, Form } from "react-bootstrap";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import "bootstrap"
 import "./diffStyles.css";
 import deleteLogo from "../img/delete.png";
 import Collapsible from 'react-collapsible';
@@ -53,7 +52,6 @@ const AllNotes = () => {
                     user_id: user_id,
                     note_id: note_id
                 })}).then((resp => {
-                    console.log(resp)
                     if(resp.status === 200){
                         setDeleted(true)
                         setTimeout(() => {
